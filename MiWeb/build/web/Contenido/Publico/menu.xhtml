@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="form2">
+            <p:growl id="messages"/>
+            <h3>Mi Menú</h3>
+            <p:menu>
+                <p:submenu label="Archivo" rendered="#{loginBean.menu.menu1}">
+                    <p:menuitem value="Guardar" actionListener="#{buttonBean.save}" update="messages" icon="ui-icon-disk" rendered="#{loginBean.menu.menu1_1}"/>
+                    <p:menuitem value="actualizar" actionListener="#{buttonBean.update}" update="messages" icon="ui-icon-arrowrefresh-1-w" rendered="#{loginBean.menu.menu1_2}"/>
+                </p:submenu>
+                <p:submenu label="Editar" rendered="#{loginBean.menu.menu2}">
+                    <p:menuitem value="Borrar" actionListener="#{buttonBean.delete}" update="messages" ajax="false" icon="ui-icon-close" rendered="#{loginBean.menu.menu2_1}"/>
+                </p:submenu>
+                <p:submenu label="Vista" rendered="#{loginBean.menu.menu3}">
+                    <p:menuitem value="Antes" action="index?faces-redirect=true" icon="ui-icon-home" rendered="#{loginBean.menu.menu3_1}"/>
+                    <p:menuitem value="Despues" action="schedule?faces-redirect=true" icon="ui-icon-star" rendered="#{loginBean.menu.menu3_2}"/>
+                </p:submenu>
+                <p:submenu label="Navegar" rendered="#{loginBean.menu.menu4}">
+                    <p:menuitem value="Home" action="index?faces-redirect=true" icon="ui-icon-home" rendered="#{loginBean.menu.menu4_1}"/>
+                    <p:menuitem value="TouchFaces" action="schedule?faces-redirect=true" icon="ui-icon-star" rendered="#{loginBean.menu.menu4_2}"/>
+                </p:submenu>
+            </p:menu>
+            </h:form>
+    </h:body>
+</html>
+

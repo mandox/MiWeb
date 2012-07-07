@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="Contenido/Publico/T_general.xhtml">
+        <ui:define name="top">
+            <h2>Agrega Información Personal</h2>
+        </ui:define> 
+        
+        <ui:define name="left">
+            <ui:include src="Contenido/Publico/menu.xhtml" />
+        </ui:define> 
+        
+        <ui:define name="right">
+            <h:form id="form">
+                <h:panelGrid columns="1" style="width: 100%">
+                    <p:wizard id="wizard">
+                        <p:tab title="Datos de Acceso" id="accessInfo">
+                            <p:panel header="Datos de Acceso">
+                                <p:messages/>
+                                <h:panelGrid columns="2">
+
+                                    <h:outputLabel for="UserName" value="Nombre de Usuario" styleClass="requiredLbl"/>
+                                    <h:inputText id="UserName" label="Nombre de Usuario" value="#{customer.usuario}" required="true"/>
+                                    
+                                    <h:outputLabel for="PriPass" value="Contraseña" styleClass="requiredLbl"/>
+                                    <p:password id="PriPass" label="Contraseña" value="#{customer.pass}" required="true" feedback="true"/> 
+                                    
+                                    <h:outputLabel for="SegPass" value="Repita Contraseña" styleClass="requiredLbl"/>
+                                    <p:password id="SegPass" label="Repita Contraseña"  value="#{customer.pass}" required="true"/>
+                                    
+                                    <h:outputLabel for="Email" value="Email" styleClass="requiredLbl"/>
+                                    <h:inputText id="Email" label="Email" value="#{customer.email}" required="true"/>
+                                    
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Datos Personales" id="personalInfo">
+                            <p:panel header="Datos Personales">
+                                <p:messages/>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel for="firstName" value="Nombres" styleClass="requiredLbl"/>
+                                    <h:inputText id="firstName" label="Nombres" value="#{customer.nombre}" required="true"/>
+                                    
+                                    <h:outputLabel for="middleName" value="Apelllidos" styleClass="optionalLbl"/>
+                                    <h:inputText id="middleName" label="Apellidos" value="#{customer.apellido}"/>
+                                    
+                                    <h:outputLabel for="birthDate" value="Fecha de Nacimiento" styleClass="optionalLbl"/>
+                                    <p:calendar id="birthDate" value="#{customer.birthDate}" showOn="button" navigator="true"/>
+                                    
+                                    <h:outputLabel for="homePhone" value="Telefono" styleClass="optionalLbl"/>
+                                    <p:inputMask id="homePhone" mask="999999999" value="#{customer.telefono}" size="9" />
+                                    
+                                    <p:selectBooleanCheckbox value="#{customer.estado}" />
+                                    <h:outputLabel for="Terminos" value="He leído y acepto la política de privacidad y participación." styleClass="requiredLbl"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Confirmación" id="confirmation">
+                            <p:panel header="Confirmación">
+                            <p:messages/>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Usuario" styleClass="optionalLbl"/>
+                                <h:outputText id="usuarioTxt" value="#{customer.nombre}" />
+                                
+                                <h:outputText value="Email" styleClass="optionalLbl"/>
+                                <h:outputText id="EmailTxt" value="#{customer.email}"/>
+                                 
+                                <h:outputText  value="Nombres" styleClass="optionalLbl"/>
+                                <h:outputText id="NombresTxt" value="#{customer.nombre}" />
+                                
+                                <h:outputText  value="Apellido" styleClass="optionalLbl"/>
+                                <h:outputText id="ApellidosTxt" value="#{customer.apellido}" />
+                                
+                                <h:outputText  value="Fecha Nacimiento" styleClass="optionalLbl"/>
+                                <h:outputText id="birthDateTxt" value="#{customer.formattedBirthDate}" />
+
+                                <h:outputText  value="Telefono" styleClass="optionalLbl"/>
+                                <h:outputText id="telefonoTxt" value="#{customer.telefono}" />
+
+
+                                <h:panelGroup/>
+                                <h:inputHidden value="#{customer.addrState}"/>
+                                <p:commandButton id="submitButton" value="Enviar" actionListener="#{customerController.saveCustomer}" ajax="false"/>
+                            </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>                   
+                </h:panelGrid>
+                
+            </h:form>
+            
+        </ui:define> 
+         <ui:define name="button">
+            © Copyright 2012 Mando - Todos los derechos reservados
+        </ui:define>  
+    </ui:composition>
+</html>

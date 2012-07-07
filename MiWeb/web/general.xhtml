@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="Contenido/Publico/T_general.xhtml">
+        <ui:define name="top">
+            <h2>Agrega Información Personal</h2>
+        </ui:define> 
+        
+        <ui:define name="left">
+            <ui:include src="Contenido/Publico/menu.xhtml" />
+        </ui:define> 
+        
+        <ui:define name="right">
+            <h:form id="form">
+                <h:panelGrid columns="1" style="width: 100%">
+                    <p:wizard id="wizard">
+                        <p:tab title="Informacion Personal" id="personalInfo">
+                            <p:panel header="Informacion Personal">
+                                <p:messages/>
+                                <h:panelGrid columns="2">
+
+                                    <h:outputLabel for="firstName" 
+                                                   value="Primer Nombre" 
+                                                   styleClass="requiredLbl"/>
+                                    <h:inputText id="firstName" 
+                                                 label="First Name" 
+                                                 value="#{customer.nombre}" 
+                                                 required="true"/>
+                                    <h:outputLabel for="middleName" 
+                                                   value="Middle Name" 
+                                                   styleClass="optionalLbl"/>
+                                    <h:inputText id="middleName" 
+                                                 label="Middle Name" 
+                                                 value="#{customer.nombre}"
+                                                 />
+                                    <h:outputLabel for="lastName" 
+                                                   value="Last Name" 
+                                                   styleClass="requiredLbl"/>
+                                    <h:inputText id="lastName" label="Last Name" 
+                                                 value="#{customer.nombre}" 
+                                                 required="true"/>
+                                    <h:outputLabel for="birthDate" 
+                                                   value="Date of Birth" 
+                                                   styleClass="optionalLbl"/>
+                                    <p:calendar id="birthDate" 
+                                                value="#{customer.birthDate}" 
+                                                showOn="button" 
+                                                navigator="true"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Phone Numbers" id="phone">
+                            <p:panel header="Phone Numbers">
+                                <p:messages/>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel for="homePhone" 
+                                                   value="Home"/>
+                                    <p:inputMask id="homePhone" 
+                                                 mask="(999)-999-9999" 
+                                                 value="#{customer.telefono}" 
+                                                 size="12" 
+                                                 styleClass="optionalLbl"/>
+
+                                    <h:outputLabel for="mobilePhone" 
+                                                   value="Mobile"/>
+                                    <p:inputMask id="mobilePhone" 
+                                                 mask="(999)-999-9999" 
+                                                 value="#{customer.telefono}" 
+                                                 size="12" 
+                                                 styleClass="optionalLbl"/>
+
+                                    <h:outputLabel for="workPhone" value="Work"/>
+                                    <p:inputMask id="workPhone" 
+                                                 mask="(999)-999-9999" 
+                                                 value="#{customer.telefono}" 
+                                                 size="12" 
+                                                 styleClass="optionalLbl"/>
+
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Confirmation" id="confirmation">
+                            <p:messages/>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="First Name" 
+                                              styleClass="optionalLbl"/>
+                                <h:outputText id="firstNameTxt" 
+                                              value="#{customer.nombre}" />
+                                <h:outputText value="Middle Name" 
+                                              styleClass="optionalLbl"/>
+                                <h:outputText id="middleNameTxt" 
+                                              value="#{customer.nombre}"/>
+                                <h:outputText  value="Last Name" 
+                                               styleClass="optionalLbl"/>
+                                <h:outputText id="lastNameTxt" 
+                                              value="#{customer.nombre}" />
+                                <h:outputText  value="Date of Birth" 
+                                               styleClass="optionalLbl"/>
+                                <h:outputText id="birthDateTxt" 
+                                              value="#{customer.
+                                                       formattedBirthDate}" />
+
+                                <h:outputText  value="Home Phone" 
+                                               styleClass="optionalLbl"/>
+                                <h:outputText id="homePhoneTxt" 
+                                              value="#{customer.telefono}" />
+
+                                <h:outputText  value="Mobile Phone" 
+                                               styleClass="optionalLbl"/>
+                                <h:outputText id="mobilePhoneTxt" 
+                                              value="#{customer.telefono}" />
+                                <h:outputText  value="Work Phone" 
+                                               styleClass="optionalLbl"/>
+                                <h:outputText id="workPhoneTxt" 
+                                              value="#{customer.telefono}" />
+
+                                <h:panelGroup/>
+                                <h:inputHidden value="#{customer.addrState}"/>
+                                <p:commandButton id="submitButton"
+                                                 value="Submit" 
+                                                 actionListener=
+                                                 "#{customerController.saveCustomer}" 
+                                                 ajax="false"/>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:wizard>                   
+                </h:panelGrid>
+                
+            </h:form>
+            <h:form prependId="false">
+
+                <p:dataTable id="dataTable" var="car" value="#{tableBean.cars}"
+                            paginator="true" rows="10"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="5,10,15">
+                    <f:facet name="header">
+                        Mis Autos
+                    </f:facet>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Model" />
+                        </f:facet>
+                        <h:outputText value="#{car.tipo}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Year" />
+                        </f:facet>
+                        <h:outputText value="#{car.cantidad}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Manufacturer" />
+                        </f:facet>
+                        <h:outputText value="#{car.descripcion}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Color" />
+                        </f:facet>
+                        <h:outputText value="#{car.precio}" />
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define> 
+         <ui:define name="button">
+            © Copyright 2012 Mando - Todos los derechos reservados
+        </ui:define>  
+    </ui:composition>
+</html>

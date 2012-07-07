@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="Contenido/Publico/T_general.xhtml">
+        <ui:define name="top">
+            <h2>Consulta de Productos</h2>
+        </ui:define> 
+        
+        <ui:define name="left">
+            <ui:include src="Contenido/Publico/menu.xhtml" />
+        </ui:define> 
+        
+        <ui:define name="right">
+            
+            <h:form>
+                <p:panel  > 
+                         
+                <p:dataTable id="dataTable" var="producto1" value="#{tableBean.productos}" widgetVar="productosTable" 
+                    emptyMessage="No se encontrar autospara este criterio">
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Buscar por campo:" />
+                        <p:inputText id="globalFilter" onkeyup="productosTable.filter()" style="width:150px" />
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:column id="tipoColumn" filterBy="#{producto1.tipo}" 
+                        headerText="Tipo" footerText="contains"
+                        filterMatchMode="contains">
+                    <h:outputText value="#{producto1.tipo}" />
+                </p:column>
+
+                <p:column id="cantidadColumn" filterBy="#{producto1.cantidad}"
+                        headerText="Cantidad" footerText="startsWith">
+                    <h:outputText value="#{producto1.cantidad}" />
+                </p:column>
+
+                <p:column id="descripcionColumn" filterBy="#{producto1.descripcion}" 
+                        headerText="Descripcion" footerText="exact"
+                        filterOptions="#{tableBean.manufacturerOptions}"
+                        filterMatchMode="exact">
+                    <h:outputText value="#{producto1.descripcion}" />
+                </p:column>
+
+                <p:column id="precioColumn" filterBy="#{producto1.precio}"
+                        headerText="Precio" footerText="endsWith" filterMatchMode="endsWith">
+                    <h:outputText value="#{producto1.precio}" />
+                </p:column>
+            </p:dataTable>
+                </p:panel>  
+        </h:form>
+        </ui:define> 
+         <ui:define name="button">
+            © Copyright 2012 Mando - Todos los derechos reservados
+        </ui:define>  
+    </ui:composition>
+</html>
